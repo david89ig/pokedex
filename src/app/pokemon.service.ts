@@ -6,9 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PokemonService {
-	private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=5';
+	private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
+
 	constructor(private http: HttpClient) {}
+
 	getPokemons(): Observable<any> {
-		return this.http.get<any>(this.apiUrl);
+		const url = `${this.apiUrl}?limit=5`;
+		return this.http.get<any>(url);
+	}
+
+	getPokemon(pokemonName: string): Observable<any> {
+    	const url = `${this.apiUrl}/${pokemonName.toLowerCase()}`;
+    	return this.http.get<any>(url);
 	}
 }
